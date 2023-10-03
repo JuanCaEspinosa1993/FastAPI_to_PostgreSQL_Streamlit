@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Response
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
-from model.user_connection import Userconnection
-from schema.user_schema import UserSchema
+from backend.model.user_connection import Userconnection
+from backend.schema.user_schema import UserSchema
 
 app = FastAPI()
 conn = Userconnection()
@@ -33,6 +33,7 @@ def insert(user_data:UserSchema):
     data = user_data.model_dump()
     data.pop("id")
     conn.write(data)
+
     return Response(status_code=HTTP_201_CREATED)
 
 

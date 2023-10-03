@@ -1,10 +1,23 @@
 import psycopg
+import json
+
+credentials = "/home/juan/Documentos/FastAPI_PostgreSQL/config.json"
+
+with open(credentials, "r") as config_file:
+    config = json.load(config_file)
+    print(config)
+
+dbname = config["dbname"]
+user =  config["user"]
+password = config["password"]
+host = config["host"]
+port = config["port"]
 
 class Userconnection():
     conn = None
     def __init__(self) :
         try:
-            self.conn = psycopg.connect("dbname=fastapi_test user=postgres password=cuca host=localhost port=5432")
+            self.conn = psycopg.connect(f"dbname={dbname} user={user} password={password} host={host} port={port}")
         except psycopg.OperationalError as err:
             print(err)
             self.conn.close()
